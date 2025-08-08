@@ -573,13 +573,13 @@
                         <div class="flex-1">
                             <div class="flex items-center space-x-2">
                                 <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                                       onchange="toggleTask(${task.id})" class="rounded">
+                                       onchange="toggleTask('${task.id}')" class="rounded">
                                 <span class="font-medium ${task.completed ? 'line-through' : ''}">${task.title}</span>
                             </div>
                             ${task.time ? `<p class="text-sm text-gray-600 mt-1">⏰ ${task.time}</p>` : ''}
                             ${task.description ? `<p class="text-sm text-gray-600 mt-1">${task.description}</p>` : ''}
                         </div>
-                        <button onclick="deleteTask(${task.id})" class="text-red-500 hover:text-red-700 ml-2">
+                        <button onclick="deleteTask('${task.id}')" class="text-red-500 hover:text-red-700 ml-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -614,7 +614,7 @@
                             <div class="flex-1">
                                 <div class="flex items-center space-x-2 mb-2">
                                     <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                                           onchange="toggleTask(${task.id})" class="rounded">
+                                           onchange="toggleTask('${task.id}')" class="rounded">
                                     <span class="font-semibold ${task.completed ? 'line-through' : ''}">${task.title}</span>
                                     <span class="px-2 py-1 text-xs rounded-full ${
                                         task.priority === 'high' ? 'bg-red-100 text-red-700' :
@@ -630,7 +630,7 @@
                                     ${task.description ? `<p>${task.description}</p>` : ''}
                                 </div>
                             </div>
-                            <button onclick="deleteTask(${task.id})" class="text-red-500 hover:text-red-700 ml-4">
+                            <button onclick="deleteTask('${task.id}')" class="text-red-500 hover:text-red-700 ml-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
@@ -645,19 +645,18 @@
         async function toggleTask(id) {
             if (!currentUser) return;
             
-            const task = tasks.find(t => t.id === id);
+            const task = tasks.find(t => t.id === String(id));
             if (task) {
-                task.completed = !task.completed;
+                const newStatus = !task.completed;
                 
                 try {
-                    await db.collection('users').doc(currentUser.uid).collection('events').doc(id).update({
-                        completed: task.completed
+                    await db.collection('users').doc(currentUser.uid).collection('events').doc(String(id)).update({
+                        completed: newStatus
                     });
                     
                     // Não precisa atualizar manualmente - sincronização automática
                 } catch (error) {
                     console.error('Erro ao atualizar tarefa:', error);
-                    task.completed = !task.completed; // Reverter mudança
                     showNotification('Erro ao atualizar compromisso', 'error');
                 }
             }
@@ -669,7 +668,7 @@
             
             if (confirm('Tem certeza que deseja excluir este compromisso?')) {
                 try {
-                    await db.collection('users').doc(currentUser.uid).collection('events').doc(id).delete();
+                    await db.collection('users').doc(currentUser.uid).collection('events').doc(String(id)).delete();
                     
                     // Não precisa atualizar manualmente - sincronização automática
                     showNotification('Compromisso excluído!', 'success');
@@ -714,5 +713,5 @@
         // Inicializar quando a página carregar
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96bfab22d5b39414',t:'MTc1NDY2Mjk3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96bfb2edc38e9414',t:'MTc1NDY2MzI5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
