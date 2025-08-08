@@ -7,13 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, updateProfile } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, updateDoc, query, where, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
-
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
+    <script>
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBhRH760_hAthw737CrzmioyZrzCeK5H8s",
@@ -26,33 +24,16 @@
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
-        // Tornar as funções globais
-        window.auth = auth;
-        window.db = db;
-        window.provider = provider;
-        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-        window.signInWithPopup = signInWithPopup;
-        window.signOut = signOut;
-        window.onAuthStateChanged = onAuthStateChanged;
-        window.updateProfile = updateProfile;
-        window.doc = doc;
-        window.setDoc = setDoc;
-        window.getDoc = getDoc;
-        window.collection = collection;
-        window.addDoc = addDoc;
-        window.getDocs = getDocs;
-        window.deleteDoc = deleteDoc;
-        window.updateDoc = updateDoc;
-        window.query = query;
-        window.where = where;
-        window.orderBy = orderBy;
-        window.onSnapshot = onSnapshot;
+        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firebase services
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Configure Google Auth Provider
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
+        provider.addScope('profile');
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -323,7 +304,7 @@
         // Inicializar a agenda
         function init() {
             // Verificar se o usuário está logado
-            onAuthStateChanged(auth, (user) => {
+            auth.onAuthStateChanged((user) => {
                 if (user) {
                     currentUser = user;
                     showUserInterface();
@@ -369,10 +350,10 @@
                     unsubscribeEvents();
                 }
                 
-                const eventsRef = collection(db, 'users', currentUser.uid, 'events');
+                const eventsRef = db.collection('users').doc(currentUser.uid).collection('events');
                 
                 // Configurar listener em tempo real
-                unsubscribeEvents = onSnapshot(eventsRef, (querySnapshot) => {
+                unsubscribeEvents = eventsRef.onSnapshot((querySnapshot) => {
                     tasks = [];
                     querySnapshot.forEach((doc) => {
                         tasks.push({ id: doc.id, ...doc.data() });
@@ -405,7 +386,7 @@
             const password = document.getElementById('loginPassword').value;
             
             try {
-                await signInWithEmailAndPassword(auth, email, password);
+                await auth.signInWithEmailAndPassword(email, password);
                 showNotification('Login realizado com sucesso!', 'success');
             } catch (error) {
                 console.error('Erro no login:', error);
@@ -416,7 +397,9 @@
         // Login com Google
         async function loginWithGoogle() {
             try {
-                await signInWithPopup(auth, provider);
+                const result = await auth.signInWithPopup(provider);
+                const user = result.user;
+                console.log('Login com Google bem-sucedido:', user);
                 showNotification('Login com Google realizado com sucesso!', 'success');
             } catch (error) {
                 console.error('Erro no login com Google:', error);
@@ -435,7 +418,7 @@
                     unsubscribeEvents = null;
                 }
                 
-                await signOut(auth);
+                await auth.signOut();
                 tasks = [];
                 
                 // Aplicar desfoque e desabilitar interação
@@ -553,9 +536,8 @@
             };
             
             try {
-                const docRef = await addDoc(collection(db, 'users', currentUser.uid, 'events'), task);
+                const docRef = await db.collection('users').doc(currentUser.uid).collection('events').add(task);
                 task.id = docRef.id;
-                tasks.push(task);
                 
                 // Limpar formulário
                 document.getElementById('taskTitle').value = '';
@@ -668,7 +650,7 @@
                 task.completed = !task.completed;
                 
                 try {
-                    await updateDoc(doc(db, 'users', currentUser.uid, 'events', id), {
+                    await db.collection('users').doc(currentUser.uid).collection('events').doc(id).update({
                         completed: task.completed
                     });
                     
@@ -687,7 +669,7 @@
             
             if (confirm('Tem certeza que deseja excluir este compromisso?')) {
                 try {
-                    await deleteDoc(doc(db, 'users', currentUser.uid, 'events', id));
+                    await db.collection('users').doc(currentUser.uid).collection('events').doc(id).delete();
                     
                     // Não precisa atualizar manualmente - sincronização automática
                     showNotification('Compromisso excluído!', 'success');
@@ -732,5 +714,5 @@
         // Inicializar quando a página carregar
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96bf9bb145ae9414',t:'MTc1NDY2MjM0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96bfab22d5b39414',t:'MTc1NDY2Mjk3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
