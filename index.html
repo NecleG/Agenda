@@ -591,54 +591,107 @@
 
         // Atualizar todas as tarefas
         function updateAllTasks() {
-            const sortedTasks = [...tasks].sort((a, b) => {
-                const dateA = new Date(a.date + (a.time ? ' ' + a.time : ''));
-                const dateB = new Date(b.date + (b.time ? ' ' + b.time : ''));
-                return dateA - dateB;
-            });
-            
             const container = document.getElementById('allTasks');
             
-            if (sortedTasks.length === 0) {
+            if (tasks.length === 0) {
                 container.innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum compromisso cadastrado ainda</p>';
                 return;
             }
             
-            container.innerHTML = sortedTasks.map(task => {
-                const taskDate = new Date(task.date);
-                const formattedDate = taskDate.toLocaleDateString('pt-BR');
+            // Agrupar tarefas por data
+            const tasksByDate = {};
+            tasks.forEach(task => {
+                if (!tasksByDate[task.date]) {
+                    tasksByDate[task.date] = [];
+                }
+                tasksByDate[task.date].push(task);
+            });
+            
+            // Ordenar datas
+            const sortedDates = Object.keys(tasksByDate).sort((a, b) => new Date(a) - new Date(b));
+            
+            let html = '';
+            
+            sortedDates.forEach(date => {
+                const tasksForDate = tasksByDate[date].sort((a, b) => {
+                    if (a.time && b.time) return a.time.localeCompare(b.time);
+                    return 0;
+                });
                 
-                return `
-                    <div class="task-item p-4 border border-gray-200 rounded-lg priority-${task.priority} ${task.completed ? 'opacity-50' : ''}" data-priority="${task.priority}">
-                        <div class="flex items-center justify-between">
-                            <div class="flex-1">
-                                <div class="flex items-center space-x-2 mb-2">
-                                    <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                                           onchange="toggleTask('${task.id}')" class="rounded">
-                                    <span class="font-semibold ${task.completed ? 'line-through' : ''}">${task.title}</span>
-                                    <span class="px-2 py-1 text-xs rounded-full ${
-                                        task.priority === 'high' ? 'bg-red-100 text-red-700' :
-                                        task.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                                        'bg-green-100 text-green-700'
-                                    }">${
-                                        task.priority === 'high' ? 'Alta' :
-                                        task.priority === 'medium' ? 'Média' : 'Baixa'
-                                    }</span>
-                                </div>
-                                <div class="text-sm text-gray-600 space-y-1">
-                                    <p>📅 ${formattedDate}${task.time ? ` às ${task.time}` : ''}</p>
-                                    ${task.description ? `<p>${task.description}</p>` : ''}
+                const dateObj = new Date(date);
+                const today = new Date().toISOString().split('T')[0];
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const tomorrowStr = tomorrow.toISOString().split('T')[0];
+                
+                let dateLabel = dateObj.toLocaleDateString('pt-BR', { 
+                    weekday: 'long', 
+                    day: 'numeric', 
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                // Adicionar labels especiais
+                if (date === today) {
+                    dateLabel = `🔥 Hoje - ${dateLabel}`;
+                } else if (date === tomorrowStr) {
+                    dateLabel = `⭐ Amanhã - ${dateLabel}`;
+                } else if (new Date(date) < new Date(today)) {
+                    dateLabel = `⏰ ${dateLabel}`;
+                }
+                
+                const completedCount = tasksForDate.filter(task => task.completed).length;
+                const totalCount = tasksForDate.length;
+                
+                html += `
+                    <div class="mb-6 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-lg font-semibold text-gray-800 capitalize">${dateLabel}</h4>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-sm text-gray-600">${completedCount}/${totalCount} concluídos</span>
+                                <div class="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-green-500 transition-all duration-300" style="width: ${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%"></div>
                                 </div>
                             </div>
-                            <button onclick="deleteTask('${task.id}')" class="text-red-500 hover:text-red-700 ml-4">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            ${tasksForDate.map(task => `
+                                <div class="task-item p-3 bg-white border border-gray-200 rounded-lg priority-${task.priority} ${task.completed ? 'opacity-60' : ''} hover:shadow-md transition-all duration-300" data-priority="${task.priority}">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                                                       onchange="toggleTask('${task.id}')" class="rounded text-blue-600 focus:ring-blue-500">
+                                                <span class="font-medium ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}">${task.title}</span>
+                                                <span class="px-2 py-1 text-xs rounded-full font-medium ${
+                                                    task.priority === 'high' ? 'bg-red-100 text-red-700' :
+                                                    task.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                                                    'bg-green-100 text-green-700'
+                                                }">${
+                                                    task.priority === 'high' ? 'Alta' :
+                                                    task.priority === 'medium' ? 'Média' : 'Baixa'
+                                                }</span>
+                                            </div>
+                                            <div class="text-sm text-gray-600 ml-6 space-y-1">
+                                                ${task.time ? `<p class="flex items-center space-x-1"><span>⏰</span><span>${task.time}</span></p>` : ''}
+                                                ${task.description ? `<p class="text-gray-500">${task.description}</p>` : ''}
+                                            </div>
+                                        </div>
+                                        <button onclick="deleteTask('${task.id}')" class="text-red-400 hover:text-red-600 ml-4 p-1 rounded-lg hover:bg-red-50 transition-all duration-300">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 `;
-            }).join('');
+            });
+            
+            container.innerHTML = html;
         }
 
         // Alternar status da tarefa
@@ -713,5 +766,5 @@
         // Inicializar quando a página carregar
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96bfb2edc38e9414',t:'MTc1NDY2MzI5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96bfbc7dc0ad9414',t:'MTc1NDY2MzY4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
