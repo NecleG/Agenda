@@ -329,15 +329,7 @@
         </div>
     </div>
 
-    <!-- Botão flutuante de tema -->
-    <button id="themeToggle" onclick="toggleTheme()" class="fixed bottom-6 right-6 w-14 h-14 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center z-50 hover:scale-110 border border-gray-200 dark:border-gray-600">
-        <svg id="sunIcon" class="w-6 h-6 text-yellow-500 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </svg>
-        <svg id="moonIcon" class="w-6 h-6 text-blue-400 transition-all duration-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </svg>
-    </button>
+
 
     <!-- Barra de usuário logado -->
     <div id="userBar" class="fixed top-4 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 flex items-center space-x-3 hidden z-40 border border-gray-200 dark:border-gray-600">
@@ -371,8 +363,7 @@
                 }
             });
             
-            // Inicializar tema
-            initTheme();
+
             
             updateCalendar();
             updateTodayTasks();
@@ -383,72 +374,7 @@
             document.getElementById('taskDate').value = today;
         }
 
-        // Inicializar tema
-        function initTheme() {
-            // Sempre começar com tema claro por padrão
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            
-            // Forçar tema claro na inicialização
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-            updateThemeIcons(false);
-            
-            console.log('Tema inicializado: claro');
-        }
 
-        // Alternar tema
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.classList.contains('dark');
-            
-            console.log('Estado atual do tema:', isDark ? 'escuro' : 'claro');
-            
-            if (isDark) {
-                // Mudar para tema claro
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                updateThemeIcons(false);
-                showNotification('Tema claro ativado! ☀️', 'success');
-                console.log('Mudou para tema claro');
-            } else {
-                // Mudar para tema escuro
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                updateThemeIcons(true);
-                showNotification('Tema escuro ativado! 🌙', 'success');
-                console.log('Mudou para tema escuro');
-            }
-            
-            // Forçar atualização visual
-            setTimeout(() => {
-                html.style.transition = 'none';
-                html.offsetHeight; // Trigger reflow
-                html.style.transition = '';
-            }, 10);
-        }
-
-        // Atualizar ícones do tema
-        function updateThemeIcons(isDark) {
-            const sunIcon = document.getElementById('sunIcon');
-            const moonIcon = document.getElementById('moonIcon');
-            
-            if (!sunIcon || !moonIcon) {
-                console.error('Ícones de tema não encontrados');
-                return;
-            }
-            
-            if (isDark) {
-                // Tema escuro ativo - mostrar ícone do sol (para mudar para claro)
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-                console.log('Mostrando ícone do sol');
-            } else {
-                // Tema claro ativo - mostrar ícone da lua (para mudar para escuro)
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-                console.log('Mostrando ícone da lua');
-            }
-        }
 
         // Mostrar interface do usuário logado
         function showUserInterface() {
@@ -1084,5 +1010,5 @@
         // Inicializar quando a página carregar
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c144dab6dd5226',t:'MTc1NDY3OTc1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c14c1317af5226',t:'MTc1NDY4MDA1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
