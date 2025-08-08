@@ -113,33 +113,33 @@
         .priority-low { border-left: 4px solid #10b981; }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 min-h-screen transition-colors duration-300">
     <div id="mainContent" class="container mx-auto px-4 py-8 max-w-6xl blur-sm pointer-events-none">
         <!-- Logo Space -->
-        <div class="text-center mb-6 h-20 flex items-center justify-center bg-white rounded-2xl shadow-lg card-hover fade-in">
+        <div class="text-center mb-6 h-20 flex items-center justify-center bg-white rounded-2xl shadow-lg card-hover fade-in border border-gray-200 dark:border-gray-600">
             <img src="https://i.imgur.com/yNgaqUE.png" alt="Logo" class="h-16 object-contain">
         </div>
 
         <!-- Header -->
         <div class="text-center mb-8 fade-in">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Minha Agenda Online</h1>
-            <p class="text-gray-600">Organize seus compromissos e afazeres de forma inteligente</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">Minha Agenda Online</h1>
+            <p class="text-gray-600 dark:text-gray-300">Organize seus compromissos e afazeres de forma inteligente</p>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
             <!-- Calendário -->
             <div class="lg:col-span-2">
-                <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover fade-in border border-gray-200 dark:border-gray-600">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-2xl font-semibold text-gray-800">Calendário</h2>
+                        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Calendário</h2>
                         <div class="flex items-center space-x-4">
-                            <button onclick="previousMonth()" class="p-2 hover:bg-gray-100 rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-md">
+                            <button onclick="previousMonth()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-md text-gray-600 dark:text-gray-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                                 </svg>
                             </button>
-                            <span id="currentMonth" class="text-lg font-medium text-gray-700 transition-all duration-300"></span>
-                            <button onclick="nextMonth()" class="p-2 hover:bg-gray-100 rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-md">
+                            <span id="currentMonth" class="text-lg font-medium text-gray-700 dark:text-gray-200 transition-all duration-300"></span>
+                            <button onclick="nextMonth()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-md text-gray-600 dark:text-gray-300">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                 </svg>
@@ -148,13 +148,13 @@
                     </div>
                     
                     <div class="grid grid-cols-7 gap-2 mb-4">
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Dom</div>
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Seg</div>
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Ter</div>
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Qua</div>
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Qui</div>
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sex</div>
-                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sáb</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Dom</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Seg</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Ter</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Qua</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Qui</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Sex</div>
+                        <div class="text-center text-sm font-medium text-gray-500 dark:text-gray-400 py-2">Sáb</div>
                     </div>
                     
                     <div id="calendarGrid" class="grid grid-cols-7 gap-2">
@@ -166,60 +166,60 @@
             <!-- Painel Lateral -->
             <div class="space-y-6">
                 <!-- Adicionar Compromisso -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">➕ Novo Compromisso</h3>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover fade-in border border-gray-200 dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">➕ Novo Compromisso</h3>
                     <form onsubmit="addTask(event)" class="space-y-4">
                         <input type="text" id="taskTitle" placeholder="Título do compromisso" 
-                               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                               class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
                         
                         <input type="date" id="taskDate" 
-                               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                               class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white" required>
                         
                         <input type="time" id="taskTime" 
-                               class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                               class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                         
-                        <select id="taskPriority" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <select id="taskPriority" class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="low">🟢 Baixa Prioridade</option>
                             <option value="medium">🟡 Média Prioridade</option>
                             <option value="high">🔴 Alta Prioridade</option>
                         </select>
                         
                         <textarea id="taskDescription" placeholder="Descrição (opcional)" rows="3"
-                                  class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"></textarea>
+                                  class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"></textarea>
                         
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg button-pulse">
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg button-pulse">
                             Adicionar Compromisso
                         </button>
                     </form>
                 </div>
 
                 <!-- Compromissos de Hoje -->
-                <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">📋 Hoje</h3>
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover fade-in border border-gray-200 dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">📋 Hoje</h3>
                     <div id="todayTasks" class="space-y-3">
-                        <p class="text-gray-500 text-center py-4">Nenhum compromisso para hoje</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-4">Nenhum compromisso para hoje</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Lista de Todos os Compromissos -->
-        <div class="mt-8 bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+        <div class="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 card-hover fade-in border border-gray-200 dark:border-gray-600">
             <div class="mb-6">
-                <h3 class="text-xl md:text-2xl font-semibold text-gray-800 mb-4">📝 Todos os Compromissos</h3>
+                <h3 class="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mb-4">📝 Todos os Compromissos</h3>
                 
                 <!-- Sistema de Pesquisa -->
-                <div class="mb-4 p-3 sm:p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <div class="mb-4 p-3 sm:p-4 bg-gray-50 dark:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-600">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         <div>
-                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">🔍 Pesquisar por data:</label>
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">🔍 Pesquisar por data:</label>
                             <input type="date" id="searchDate" onchange="searchByDate()" 
-                                   class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm">
+                                   class="w-full px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm bg-white dark:bg-gray-600 text-gray-900 dark:text-white">
                         </div>
                         <div>
-                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">📅 Período:</label>
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">📅 Período:</label>
                             <select id="periodFilter" onchange="filterByPeriod()" 
-                                    class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm">
+                                    class="w-full px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm bg-white dark:bg-gray-600 text-gray-900 dark:text-white">
                                 <option value="all">Todos os períodos</option>
                                 <option value="today">Hoje</option>
                                 <option value="tomorrow">Amanhã</option>
@@ -229,9 +229,9 @@
                             </select>
                         </div>
                         <div class="sm:col-span-2 lg:col-span-1">
-                            <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">🎯 Prioridade:</label>
+                            <label class="block text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">🎯 Prioridade:</label>
                             <select id="priorityFilter" onchange="filterTasks(this.value)" 
-                                    class="w-full px-2 sm:px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm">
+                                    class="w-full px-2 sm:px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm bg-white dark:bg-gray-600 text-gray-900 dark:text-white">
                                 <option value="all">Todas as prioridades</option>
                                 <option value="high">🔴 Alta Prioridade</option>
                                 <option value="medium">🟡 Média Prioridade</option>
@@ -242,15 +242,15 @@
                     
                     <div class="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-                            <button onclick="clearFilters()" class="px-3 py-2 text-xs sm:text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition-all duration-300 text-center">
+                            <button onclick="clearFilters()" class="px-3 py-2 text-xs sm:text-sm bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-200 rounded-lg transition-all duration-300 text-center">
                                 Limpar Filtros
                             </button>
-                            <span id="filterResults" class="text-xs sm:text-sm text-gray-600 text-center sm:text-left"></span>
+                            <span id="filterResults" class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center sm:text-left"></span>
                         </div>
                         <div class="flex items-center justify-center sm:justify-end gap-2">
-                            <span class="text-xs sm:text-sm text-gray-600 whitespace-nowrap">Ordenar:</span>
+                            <span class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">Ordenar:</span>
                             <select id="sortOrder" onchange="updateAllTasks()" 
-                                    class="px-2 py-1 text-xs sm:text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 min-w-0 flex-1 sm:flex-none">
+                                    class="px-2 py-1 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded focus:ring-1 focus:ring-blue-500 min-w-0 flex-1 sm:flex-none bg-white dark:bg-gray-600 text-gray-900 dark:text-white">
                                 <option value="date-asc">Data (próxima)</option>
                                 <option value="date-desc">Data (distante)</option>
                                 <option value="priority">Prioridade</option>
@@ -261,16 +261,16 @@
                 </div>
             </div>
             <div id="allTasks" class="space-y-3">
-                <p class="text-gray-500 text-center py-8">Nenhum compromisso cadastrado ainda</p>
+                <p class="text-gray-500 dark:text-gray-400 text-center py-8">Nenhum compromisso cadastrado ainda</p>
             </div>
         </div>
 
         <!-- Rodapé -->
-        <footer class="mt-12 text-center py-6 border-t border-gray-200 fade-in">
-            <p class="text-gray-600 text-sm">
+        <footer class="mt-12 text-center py-6 border-t border-gray-200 dark:border-gray-600 fade-in">
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
                 © 2025 Casa dos Cereais - Todos os direitos reservados
             </p>
-            <p class="text-gray-500 text-xs mt-1">
+            <p class="text-gray-500 dark:text-gray-500 text-xs mt-1">
                 Desenvolvido por Gabriel
             </p>
         </footer>
@@ -278,22 +278,22 @@
 
     <!-- Modal de Login -->
     <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 card-hover">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 card-hover border border-gray-200 dark:border-gray-600">
             <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Bem-vindo!</h2>
-                <p class="text-gray-600">Entre na sua conta para acessar sua agenda</p>
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Bem-vindo!</h2>
+                <p class="text-gray-600 dark:text-gray-300">Entre na sua conta para acessar sua agenda</p>
             </div>
 
             <!-- Formulário de Login -->
             <div id="loginForm">
                 <form onsubmit="loginWithEmail(event)" class="space-y-4">
                     <input type="email" id="loginEmail" placeholder="Seu e-mail" 
-                           class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                           class="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
                     
                     <div class="relative">
                         <input type="password" id="loginPassword" placeholder="Sua senha" 
-                               class="w-full px-4 py-3 pr-12 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                               class="w-full px-4 py-3 pr-12 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400" required>
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                             <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -301,16 +301,16 @@
                         </button>
                     </div>
                     
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                         Entrar
                     </button>
                 </form>
 
                 <div class="my-4 text-center">
-                    <span class="text-gray-500 text-sm">ou</span>
+                    <span class="text-gray-500 dark:text-gray-400 text-sm">ou</span>
                 </div>
 
-                <button onclick="loginWithGoogle()" class="w-full bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg border border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-3">
+                <button onclick="loginWithGoogle()" class="w-full bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium py-3 px-4 rounded-lg border border-gray-300 dark:border-gray-600 transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-3">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -321,7 +321,7 @@
                 </button>
             </div>
 
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -329,14 +329,24 @@
         </div>
     </div>
 
+    <!-- Botão flutuante de tema -->
+    <button id="themeToggle" onclick="toggleTheme()" class="fixed bottom-6 right-6 w-14 h-14 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center z-50 hover:scale-110 border border-gray-200 dark:border-gray-600">
+        <svg id="sunIcon" class="w-6 h-6 text-yellow-500 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg id="moonIcon" class="w-6 h-6 text-blue-400 transition-all duration-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
     <!-- Barra de usuário logado -->
-    <div id="userBar" class="fixed top-4 right-4 bg-white rounded-lg shadow-lg p-3 flex items-center space-x-3 hidden z-40">
+    <div id="userBar" class="fixed top-4 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-3 flex items-center space-x-3 hidden z-40 border border-gray-200 dark:border-gray-600">
         <div class="flex items-center space-x-2">
             <div id="syncIndicator" class="w-2 h-2 bg-green-500 rounded-full animate-pulse" title="Sincronizado em tempo real"></div>
             <div id="userAvatar" class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium"></div>
-            <span id="userName" class="text-sm font-medium text-gray-700"></span>
+            <span id="userName" class="text-sm font-medium text-gray-700 dark:text-gray-200"></span>
         </div>
-        <button onclick="logout()" class="text-red-500 hover:text-red-700 text-sm font-medium">
+        <button onclick="logout()" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 text-sm font-medium">
             Sair
         </button>
     </div>
@@ -361,6 +371,9 @@
                 }
             });
             
+            // Inicializar tema
+            initTheme();
+            
             updateCalendar();
             updateTodayTasks();
             updateAllTasks();
@@ -368,6 +381,59 @@
             // Definir data de hoje como padrão
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('taskDate').value = today;
+        }
+
+        // Inicializar tema
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            
+            // Começar sempre com tema claro por padrão
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                updateThemeIcons(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeIcons(false);
+                // Salvar tema claro como padrão se não houver preferência
+                if (!savedTheme) {
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+        }
+
+        // Alternar tema
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            if (isDark) {
+                // Mudar para tema claro
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateThemeIcons(false);
+                showNotification('Tema claro ativado! ☀️', 'success');
+            } else {
+                // Mudar para tema escuro
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeIcons(true);
+                showNotification('Tema escuro ativado! 🌙', 'success');
+            }
+        }
+
+        // Atualizar ícones do tema
+        function updateThemeIcons(isDark) {
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            
+            if (isDark) {
+                // Tema escuro ativo - mostrar ícone do sol (para mudar para claro)
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                // Tema claro ativo - mostrar ícone da lua (para mudar para escuro)
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
         }
 
         // Mostrar interface do usuário logado
@@ -524,10 +590,10 @@
                 date.setDate(startDate.getDate() + i);
                 
                 const dayElement = document.createElement('div');
-                dayElement.className = `calendar-day p-3 text-center cursor-pointer rounded-lg border-2 border-transparent hover:border-blue-300 ${
-                    date.getMonth() === month ? 'text-gray-800' : 'text-gray-400'
+                dayElement.className = `calendar-day p-3 text-center cursor-pointer rounded-lg border-2 border-transparent hover:border-blue-300 dark:hover:border-blue-400 ${
+                    date.getMonth() === month ? 'text-gray-800 dark:text-gray-200' : 'text-gray-400 dark:text-gray-600'
                 } ${
-                    date.toDateString() === new Date().toDateString() ? 'bg-blue-100 border-blue-300' : 'hover:bg-gray-50'
+                    date.toDateString() === new Date().toDateString() ? 'bg-blue-100 dark:bg-blue-900 border-blue-300 dark:border-blue-400' : 'hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`;
                 
                 const dayTasks = tasks.filter(task => task.date === date.toISOString().split('T')[0]);
@@ -614,18 +680,18 @@
             }
             
             container.innerHTML = todayTasks.map(task => `
-                <div class="task-item p-3 border border-gray-200 rounded-lg priority-${task.priority} ${task.completed ? 'opacity-50' : ''}">
+                <div class="task-item p-3 border border-gray-200 dark:border-gray-600 rounded-lg priority-${task.priority} ${task.completed ? 'opacity-50' : ''} bg-white dark:bg-gray-700">
                     <div class="flex items-center justify-between">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2">
                                 <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                                       onchange="toggleTask('${task.id}')" class="rounded">
-                                <span class="font-medium ${task.completed ? 'line-through' : ''}">${task.title}</span>
+                                       onchange="toggleTask('${task.id}')" class="rounded text-blue-600 focus:ring-blue-500">
+                                <span class="font-medium ${task.completed ? 'line-through' : ''} text-gray-800 dark:text-gray-200">${task.title}</span>
                             </div>
-                            ${task.time ? `<p class="text-sm text-gray-600 mt-1">⏰ ${task.time}</p>` : ''}
-                            ${task.description ? `<p class="text-sm text-gray-600 mt-1">${task.description}</p>` : ''}
+                            ${task.time ? `<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">⏰ ${task.time}</p>` : ''}
+                            ${task.description ? `<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">${task.description}</p>` : ''}
                         </div>
-                        <button onclick="deleteTask('${task.id}')" class="text-red-500 hover:text-red-700 ml-2">
+                        <button onclick="deleteTask('${task.id}')" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 ml-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                             </svg>
@@ -713,12 +779,12 @@
                 const totalCount = tasksForDate.length;
                 
                 html += `
-                    <div class="mb-6 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                    <div class="mb-6 bg-gray-50 dark:bg-gray-700 rounded-xl p-4 border border-gray-200 dark:border-gray-600">
                         <div class="flex items-center justify-between mb-4">
-                            <h4 class="text-lg font-semibold text-gray-800 capitalize">${dateLabel}</h4>
+                            <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 capitalize">${dateLabel}</h4>
                             <div class="flex items-center space-x-2">
-                                <span class="text-sm text-gray-600">${completedCount}/${totalCount} concluídos</span>
-                                <div class="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">${completedCount}/${totalCount} concluídos</span>
+                                <div class="w-16 h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
                                     <div class="h-full bg-green-500 transition-all duration-300" style="width: ${totalCount > 0 ? (completedCount / totalCount) * 100 : 0}%"></div>
                                 </div>
                             </div>
@@ -726,28 +792,28 @@
                         
                         <div class="space-y-3">
                             ${tasksForDate.map(task => `
-                                <div class="task-item p-3 bg-white border border-gray-200 rounded-lg priority-${task.priority} ${task.completed ? 'opacity-60' : ''} hover:shadow-md transition-all duration-300" data-priority="${task.priority}">
+                                <div class="task-item p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg priority-${task.priority} ${task.completed ? 'opacity-60' : ''} hover:shadow-md transition-all duration-300" data-priority="${task.priority}">
                                     <div class="flex items-center justify-between">
                                         <div class="flex-1">
                                             <div class="flex items-center space-x-3 mb-2">
                                                 <input type="checkbox" ${task.completed ? 'checked' : ''} 
                                                        onchange="toggleTask('${task.id}')" class="rounded text-blue-600 focus:ring-blue-500">
-                                                <span class="font-medium ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}">${task.title}</span>
+                                                <span class="font-medium ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-800 dark:text-gray-200'}">${task.title}</span>
                                                 <span class="px-2 py-1 text-xs rounded-full font-medium ${
-                                                    task.priority === 'high' ? 'bg-red-100 text-red-700' :
-                                                    task.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                                                    'bg-green-100 text-green-700'
+                                                    task.priority === 'high' ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300' :
+                                                    task.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300' :
+                                                    'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
                                                 }">${
                                                     task.priority === 'high' ? 'Alta' :
                                                     task.priority === 'medium' ? 'Média' : 'Baixa'
                                                 }</span>
                                             </div>
-                                            <div class="text-sm text-gray-600 ml-6 space-y-1">
+                                            <div class="text-sm text-gray-600 dark:text-gray-400 ml-6 space-y-1">
                                                 ${task.time ? `<p class="flex items-center space-x-1"><span>⏰</span><span>${task.time}</span></p>` : ''}
-                                                ${task.description ? `<p class="text-gray-500">${task.description}</p>` : ''}
+                                                ${task.description ? `<p class="text-gray-500 dark:text-gray-400">${task.description}</p>` : ''}
                                             </div>
                                         </div>
-                                        <button onclick="deleteTask('${task.id}')" class="text-red-400 hover:text-red-600 ml-4 p-1 rounded-lg hover:bg-red-50 transition-all duration-300">
+                                        <button onclick="deleteTask('${task.id}')" class="text-red-400 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 ml-4 p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-900 transition-all duration-300">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -1004,5 +1070,5 @@
         // Inicializar quando a página carregar
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c0df7325cc5218',t:'MTc1NDY3NTYwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c13e50f45f5226',t:'MTc1NDY3OTQ4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
