@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Agenda Online</title>
+    <title>Agenda Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Firebase SDK -->
@@ -122,7 +122,7 @@
 
         <!-- Header -->
         <div class="text-center mb-8 fade-in">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">Minha Agenda Online</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">Agenda Digital</h1>
             <p class="text-gray-600 dark:text-gray-300">Organize seus compromissos e afazeres de forma inteligente</p>
         </div>
 
@@ -385,39 +385,46 @@
 
         // Inicializar tema
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
+            // Sempre começar com tema claro por padrão
+            const savedTheme = localStorage.getItem('theme') || 'light';
             
-            // Começar sempre com tema claro por padrão
-            if (savedTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-                updateThemeIcons(true);
-            } else {
-                document.documentElement.classList.remove('dark');
-                updateThemeIcons(false);
-                // Salvar tema claro como padrão se não houver preferência
-                if (!savedTheme) {
-                    localStorage.setItem('theme', 'light');
-                }
-            }
+            // Forçar tema claro na inicialização
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            updateThemeIcons(false);
+            
+            console.log('Tema inicializado: claro');
         }
 
         // Alternar tema
         function toggleTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            
+            console.log('Estado atual do tema:', isDark ? 'escuro' : 'claro');
             
             if (isDark) {
                 // Mudar para tema claro
-                document.documentElement.classList.remove('dark');
+                html.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
                 updateThemeIcons(false);
                 showNotification('Tema claro ativado! ☀️', 'success');
+                console.log('Mudou para tema claro');
             } else {
                 // Mudar para tema escuro
-                document.documentElement.classList.add('dark');
+                html.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
                 updateThemeIcons(true);
                 showNotification('Tema escuro ativado! 🌙', 'success');
+                console.log('Mudou para tema escuro');
             }
+            
+            // Forçar atualização visual
+            setTimeout(() => {
+                html.style.transition = 'none';
+                html.offsetHeight; // Trigger reflow
+                html.style.transition = '';
+            }, 10);
         }
 
         // Atualizar ícones do tema
@@ -425,14 +432,21 @@
             const sunIcon = document.getElementById('sunIcon');
             const moonIcon = document.getElementById('moonIcon');
             
+            if (!sunIcon || !moonIcon) {
+                console.error('Ícones de tema não encontrados');
+                return;
+            }
+            
             if (isDark) {
                 // Tema escuro ativo - mostrar ícone do sol (para mudar para claro)
                 sunIcon.classList.remove('hidden');
                 moonIcon.classList.add('hidden');
+                console.log('Mostrando ícone do sol');
             } else {
                 // Tema claro ativo - mostrar ícone da lua (para mudar para escuro)
                 sunIcon.classList.add('hidden');
                 moonIcon.classList.remove('hidden');
+                console.log('Mostrando ícone da lua');
             }
         }
 
@@ -1070,5 +1084,5 @@
         // Inicializar quando a página carregar
         init();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c13e50f45f5226',t:'MTc1NDY3OTQ4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c144dab6dd5226',t:'MTc1NDY3OTc1Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
